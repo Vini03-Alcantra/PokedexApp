@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex/consts/consts_app.dart';
+import 'package:pokedex/views/widgets/app_bar_home.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -10,9 +11,11 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
+    double statusWidth = MediaQuery.of(context).padding.top;
     return Scaffold(   
       backgroundColor: Colors.white,   
       body: Stack(
+        alignment: Alignment.topCenter,
         overflow: Overflow.visible,
         children: <Widget>[
           Positioned(
@@ -26,6 +29,16 @@ class _HomePageState extends State<HomePage> {
               ),
               opacity: 0.1
             )
+          ),
+          Container(
+            child: Column(
+              children: <Widget>[
+                Container(
+                  height: statusWidth,                  
+                ),
+                AppBarHome()
+              ],
+            ),
           )
         ],
       ),
