@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:pokedex/consts/consts_app.dart';
 import 'package:pokedex/models/pokeapi.dart';
 import 'package:pokedex/stores/pokeapi_store.dart';
@@ -53,13 +54,42 @@ class _HomePageState extends State<HomePage> {
                       builder: (BuildContext context){
                         PokeAPI _pokeApi = pokeApiStore.pokeAPI;
                         return (_pokeApi != null) ?
-                        ListView.builder(
-                          itemCount: _pokeApi.pokemon.length,
-                          itemBuilder: (context, index){
-                            return ListTile(
-                              title: Text(_pokeApi.pokemon[index].name),
-                            );
-                          }
+                        AnimationLimiter(
+                          child: GridView.builder(
+                            physics: BouncingScrollPhysics(),
+                            padding: EdgeInsets.all(12),
+                            addAutomaticKeepAlives: false,
+                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+                            itemCount: pokeApiStore.pokeAPI.pokemon.length,                            
+                            itemBuilder: (context, index){
+                              return AnimationConfiguration.staggeredGrid(
+                                position: index,
+                                duration: const Duration(milliseconds: 375),
+                                columnCount: 2,
+                                child: ScaleAnimation(
+                                  child: ScaleAnimation(
+                                    child: GestureDetector(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Container(color: Colors.red),
+                                      ),
+                                      onTap: (){
+                                        Navigator.push(context,
+                                        MaterialPageRoute(
+                                          builder: (BuildContext context){
+                                            return Container();                                            
+                                          },
+                                          fullscreenDialog: true
+                                        )
+                                        );
+                                      },
+                                    ),
+                                    
+                                  )
+                                )
+                              );
+                            }
+                          ),  
                         ): Center(child: CircularProgressIndicator());
                       },
                     ),
