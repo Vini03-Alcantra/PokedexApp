@@ -5,6 +5,7 @@ import 'package:pokedex/consts/consts_app.dart';
 import 'package:pokedex/models/pokeapi.dart';
 import 'package:pokedex/stores/pokeapi_store.dart';
 import 'package:pokedex/views/widgets/app_bar_home.dart';
+import 'package:pokedex/views/widgets/poke_item.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -58,7 +59,7 @@ class _HomePageState extends State<HomePage> {
                           child: GridView.builder(
                             physics: BouncingScrollPhysics(),
                             padding: EdgeInsets.all(12),
-                            addAutomaticKeepAlives: false,
+                            addAutomaticKeepAlives: true,
                             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
                             itemCount: pokeApiStore.pokeAPI.pokemon.length,                            
                             itemBuilder: (context, index){
@@ -67,24 +68,18 @@ class _HomePageState extends State<HomePage> {
                                 duration: const Duration(milliseconds: 375),
                                 columnCount: 2,
                                 child: ScaleAnimation(
-                                  child: ScaleAnimation(
-                                    child: GestureDetector(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Container(color: Colors.red),
-                                      ),
-                                      onTap: (){
-                                        Navigator.push(context,
-                                        MaterialPageRoute(
-                                          builder: (BuildContext context){
-                                            return Container();                                            
-                                          },
-                                          fullscreenDialog: true
-                                        )
-                                        );
-                                      },
-                                    ),
-                                    
+                                  child: GestureDetector(
+                                    child: PokeItem(),
+                                    onTap: (){
+                                      Navigator.push(context,
+                                      MaterialPageRoute(
+                                        builder: (BuildContext context){
+                                          return Container();                                            
+                                        },
+                                        fullscreenDialog: true
+                                      )
+                                      );
+                                    },
                                   )
                                 )
                               );
