@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
@@ -34,6 +33,19 @@ abstract class PokeApiStoreBase with Store{
     return _pokeAPI.pokemon[index];
   }
 
+  @action
+  Widget getImage({String numero}){
+    return CachedNetworkImage(
+      placeholder: (context, url){
+        return Container(
+          color: Colors.transparent
+        );
+
+      },
+      imageUrl: "https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/$numero.png"
+    );
+  }
+
   Future<PokeAPI> loadPokeAPI() async {
     try {
       final response = await http.get(ConstsAPI.pokeapiURL);
@@ -43,16 +55,5 @@ abstract class PokeApiStoreBase with Store{
       print("Erro ao carregar lista");
       return null;
     }
-  }
-
-  Widget getImage({String numero}){
-    return CachedNetworkImage(
-      placeholder: (context, url){
-        return Container(
-          color: Colors.transparent
-        );        
-      }, 
-      imageUrl: "https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/$numero.png",      
-    );
   }
 }

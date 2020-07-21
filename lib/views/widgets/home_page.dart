@@ -7,6 +7,10 @@ import 'package:pokedex/stores/pokeapi_store.dart';
 import 'package:pokedex/views/widgets/app_bar_home.dart';
 import 'package:pokedex/views/widgets/poke_item.dart';
 
+import '../../models/pokeapi.dart';
+import '../../models/pokeapi.dart';
+import '../../stores/pokeapi_store.dart';
+
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -63,13 +67,18 @@ class _HomePageState extends State<HomePage> {
                             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
                             itemCount: pokeApiStore.pokeAPI.pokemon.length,                            
                             itemBuilder: (context, index){
+                              Pokemon pokemon = pokeApiStore.getPokemon(index: index);
                               return AnimationConfiguration.staggeredGrid(
                                 position: index,
                                 duration: const Duration(milliseconds: 375),
                                 columnCount: 2,
                                 child: ScaleAnimation(
                                   child: GestureDetector(
-                                    child: PokeItem(),
+                                    child: PokeItem(
+                                      index: index,
+                                      nome: pokemon.name,
+                                      image: pokeApiStore.getImage(numero: pokemon.num),
+                                    ),
                                     onTap: (){
                                       Navigator.push(context,
                                       MaterialPageRoute(
