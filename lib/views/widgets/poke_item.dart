@@ -20,7 +20,7 @@ class PokeItem extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Stack(
-            alignment: Alignment.bottomRight,
+            //alignment: Alignment.bottomRight,
             children: <Widget>[
               Align(
                 alignment: Alignment.bottomRight,
@@ -36,15 +36,21 @@ class PokeItem extends StatelessWidget {
               Align(
                 alignment: Alignment.bottomRight,
                 child: CachedNetworkImage(
-                  height: 100,
-                  width: 100,
+                  height: 90,
+                  width: 90,
                   placeholder: (context, url) => Container(
                     color: Colors.transparent,
                   ),
                   imageUrl: "https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/$num.png"
                 ),
               ),
-              Text(nome)
+              Text(nome, style: TextStyle(
+                fontFamily: "Google",
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.white
+              ),
+             )
             ],
           ),
         ),
