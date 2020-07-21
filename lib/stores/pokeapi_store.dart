@@ -40,7 +40,6 @@ abstract class PokeApiStoreBase with Store{
         return Container(
           color: Colors.transparent
         );
-
       },
       imageUrl: "https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/$numero.png"
     );
