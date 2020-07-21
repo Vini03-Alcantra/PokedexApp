@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
+import '../../consts/consts_api.dart';
 import '../../consts/consts_app.dart';
 
 class PokeItem extends StatelessWidget {
@@ -55,7 +56,7 @@ class PokeItem extends StatelessWidget {
           ),
         ),
         decoration: BoxDecoration(
-            color: Colors.red,
+            color: ConstsAPI.getColorType(type: types[0]),
             borderRadius: BorderRadius.all(
               Radius.circular(20),
             )
