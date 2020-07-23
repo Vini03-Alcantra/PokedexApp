@@ -18,7 +18,7 @@ class PokeDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _pokemonStore = Provider.of<PokeApiStore>(context);
-    Pokemon _pokemon = _pokemonStore.getPokemon(index: this.index);    
+    Pokemon _pokemon = _pokemonStore.pokemonAtual;
     _corPokemon = ConstsAPI.getColorType(type: _pokemon.type[0]);
     var altura = MediaQuery.of(context).size.height;
     
@@ -51,10 +51,15 @@ class PokeDetailPage extends StatelessWidget {
                 onPressed: (){}
               )
             ],
-          ),
-          backgroundColor: _corPokemon,
+          ),          
           body: Stack(
             children: <Widget>[
+              Observer(  
+                builder: (context){
+                  _corPokemon = ConstsAPI.getColorType(type: _pokemon.type[0]);
+                  return Container(color: _corPokemon);
+                }
+              ),              
               Container(            
                 height: altura / 3,
               ),

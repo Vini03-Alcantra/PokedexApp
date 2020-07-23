@@ -74,10 +74,14 @@ class HomePage extends StatelessWidget {
                                       num: pokemon.numero,
                                     ),
                                     onTap: (){
-                                      Navigator.push(context,
-                                      MaterialPageRoute(
-                                        builder: (BuildContext context){
-                                          return PokeDetailPage(index: index,);                                            
+                                      _pokemonStore.setPokemonAtual(index: index);
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (BuildContext context){
+                                          return PokeDetailPage(
+                                            index: index
+                                          );                                            
                                         },
                                         fullscreenDialog: true
                                       )
