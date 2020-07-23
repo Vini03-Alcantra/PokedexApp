@@ -14,6 +14,9 @@ import '../../stores/pokeapi_store.dart';
 class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {    
     final _pokemonStore = Provider.of<PokeApiStore>(context);
+    if(_pokemonStore.pokeAPI == null){
+      _pokemonStore.fetchPokemonList();
+    }
     _pokemonStore.fetchPokemonList();
     double screenWidth = MediaQuery.of(context).size.width;
     double statusWidth = MediaQuery.of(context).padding.top;
