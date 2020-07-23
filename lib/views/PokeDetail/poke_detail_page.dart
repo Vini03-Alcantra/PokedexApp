@@ -25,38 +25,48 @@ class PokeDetailPage extends StatelessWidget {
     return Observer( 
       builder: (BuildContext context){
         return Scaffold(
-          appBar: AppBar(
-            title: Opacity(
-              opacity: 0.0,
-              child: Text(
-                _pokemon.name,
-                style: TextStyle(
-                  fontFamily: "Google",
-                  fontWeight: FontWeight.bold,
-                  fontSize: 21
-                ),
-              ),
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(50),
+            child: Observer(  
+              builder: (context){
+                _corPokemon = ConstsAPI.getColorType(  
+                  type: _pokemonStore.pokemonAtual.type[0]
+                );
+                return AppBar(
+                  title: Opacity(
+                    opacity: 0.0,
+                    child: Text(
+                      _pokemon.name,
+                      style: TextStyle(
+                        fontFamily: "Google",
+                        fontWeight: FontWeight.bold,
+                        fontSize: 21
+                      ),
+                    ),
+                  ),
+                  elevation: 0, 
+                  backgroundColor: _corPokemon,
+                  leading: IconButton(  
+                    icon: Icon(Icons.arrow_back),
+                    onPressed: (){
+                      Navigator.pop(context);
+                    },
+                  ),
+                  actions: <Widget>[
+                    IconButton(
+                      icon: Icon(Icons.favorite_border),            
+                      onPressed: (){}
+                    )
+                  ],
+                );
+              }
             ),
-            elevation: 0, 
-            backgroundColor: _corPokemon,
-            leading: IconButton(  
-              icon: Icon(Icons.arrow_back),
-              onPressed: (){
-                Navigator.pop(context);
-              },
-            ),
-            actions: <Widget>[
-              IconButton(
-                icon: Icon(Icons.favorite_border),            
-                onPressed: (){}
-              )
-            ],
-          ),          
+          ),         
           body: Stack(
             children: <Widget>[
               Observer(  
                 builder: (context){
-                  _corPokemon = ConstsAPI.getColorType(type: _pokemon.type[0]);
+                  _corPokemon = ConstsAPI.getColorType(type: _pokemonStore.pokemonAtual.type[0]);
                   return Container(color: _corPokemon);
                 }
               ),              
@@ -89,6 +99,9 @@ class PokeDetailPage extends StatelessWidget {
                   child: SizedBox(
                     height: 150,
                     child: PageView.builder(
+                      onPageChanged: (index){
+                        _pokemonStore.setPokemonAtual(index: index);
+                      },
                       itemCount: _pokemonStore.pokeAPI.pokemon.length,
                       itemBuilder: (BuildContext context, int index){
                         Pokemon _pokeitem = _pokemonStore.getPokemon(index: index);

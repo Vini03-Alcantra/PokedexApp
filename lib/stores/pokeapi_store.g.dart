@@ -16,13 +16,13 @@ mixin _$PokeApiStore on PokeApiStoreBase, Store {
       (_$pokeAPIComputed ??= Computed<PokeAPI>(() => super.pokeAPI,
               name: 'PokeApiStoreBase.pokeAPI'))
           .value;
-  Computed<PokeAPI> _$corPokemonAtualComputed;
+  Computed<Pokemon> _$pokemonAtualComputed;
 
   @override
-  PokeAPI get corPokemonAtual => (_$corPokemonAtualComputed ??=
-          Computed<PokeAPI>(() => super.corPokemonAtual,
-              name: 'PokeApiStoreBase.corPokemonAtual'))
-      .value;
+  Pokemon get pokemonAtual =>
+      (_$pokemonAtualComputed ??= Computed<Pokemon>(() => super.pokemonAtual,
+              name: 'PokeApiStoreBase.pokemonAtual'))
+          .value;
 
   final _$_pokeAPIAtom = Atom(name: 'PokeApiStoreBase._pokeAPI');
 
@@ -39,34 +39,18 @@ mixin _$PokeApiStore on PokeApiStoreBase, Store {
     });
   }
 
-  final _$pokemonAtualAtom = Atom(name: 'PokeApiStoreBase.pokemonAtual');
+  final _$_pokemonAtualAtom = Atom(name: 'PokeApiStoreBase._pokemonAtual');
 
   @override
-  Pokemon get pokemonAtual {
-    _$pokemonAtualAtom.reportRead();
-    return super.pokemonAtual;
+  Pokemon get _pokemonAtual {
+    _$_pokemonAtualAtom.reportRead();
+    return super._pokemonAtual;
   }
 
   @override
-  set pokemonAtual(Pokemon value) {
-    _$pokemonAtualAtom.reportWrite(value, super.pokemonAtual, () {
-      super.pokemonAtual = value;
-    });
-  }
-
-  final _$_corPokemonAtualAtom =
-      Atom(name: 'PokeApiStoreBase._corPokemonAtual');
-
-  @override
-  dynamic get _corPokemonAtual {
-    _$_corPokemonAtualAtom.reportRead();
-    return super._corPokemonAtual;
-  }
-
-  @override
-  set _corPokemonAtual(dynamic value) {
-    _$_corPokemonAtualAtom.reportWrite(value, super._corPokemonAtual, () {
-      super._corPokemonAtual = value;
+  set _pokemonAtual(Pokemon value) {
+    _$_pokemonAtualAtom.reportWrite(value, super._pokemonAtual, () {
+      super._pokemonAtual = value;
     });
   }
 
@@ -120,9 +104,8 @@ mixin _$PokeApiStore on PokeApiStoreBase, Store {
   @override
   String toString() {
     return '''
-pokemonAtual: ${pokemonAtual},
 pokeAPI: ${pokeAPI},
-corPokemonAtual: ${corPokemonAtual}
+pokemonAtual: ${pokemonAtual}
     ''';
   }
 }
