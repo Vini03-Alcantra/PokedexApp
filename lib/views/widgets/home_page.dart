@@ -4,6 +4,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:pokedex/consts/consts_app.dart';
 import 'package:pokedex/models/pokeapi.dart';
 import 'package:pokedex/stores/pokeapi_store.dart';
+import 'package:pokedex/views/PokeDetail/poke_detail_page.dart';
 import 'package:pokedex/views/widgets/app_bar_home.dart';
 import 'package:pokedex/views/widgets/poke_item.dart';
 import '../../models/pokeapi.dart';
@@ -82,7 +83,7 @@ class _HomePageState extends State<HomePage> {
                                       Navigator.push(context,
                                       MaterialPageRoute(
                                         builder: (BuildContext context){
-                                          return Container();                                            
+                                          return PokeDetailPage();                                            
                                         },
                                         fullscreenDialog: true
                                       )
