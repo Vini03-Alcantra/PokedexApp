@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-
 import '../../consts/consts_api.dart';
 import '../../consts/consts_app.dart';
 
@@ -17,20 +16,20 @@ class PokeItem extends StatelessWidget {
       lista.add(
         Column(
           children: <Widget>[
-            Container(
-              padding: EdgeInsets.all(0),
+            Container(              
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Color.fromARGB(80, 255, 255, 255)),
+                borderRadius: BorderRadius.circular(20),
+                color: Color.fromARGB(80, 255, 255, 255)),
               child: Padding(
                 padding: const EdgeInsets.all(6.0),
                 child: Text(
                   nome.trim(),
                   style: TextStyle(
-                      fontFamily: 'Google',
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
+                    fontFamily: 'Google',
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white
+                  ),
                 ),
               ),
             ),
@@ -41,10 +40,14 @@ class PokeItem extends StatelessWidget {
         ),
       );
     });
-    return Column(
+    return Align(
+      alignment: Alignment.topLeft,
+      child: Column(
       children: lista,
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start            
+    ),
     );
+    
   }
 
   const PokeItem({Key key, this.nome, this.index, this.color, this.num, this.types})
@@ -54,26 +57,34 @@ class PokeItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Stack(          
           children: <Widget>[
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(0),
             child: Stack(              
               children: <Widget>[             
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0, top: 8.0),
-                  child: Text(
-                    nome, 
-                    style: TextStyle(
-                      fontFamily: "Google",
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white
+                Column(
+                  children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0, top: 8.0, right: 8.0),
+                    child: Text(
+                      nome, 
+                      style: TextStyle(
+                        fontFamily: "Google",
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white
+                      ),
+                    ),
                   ),
-                ),
-                ),              
-                setTipos(),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: setTipos(),
+                  )
+                  ],
+                ),                      
                 Align(
                   alignment: Alignment.bottomRight,
                   child: Opacity(
@@ -100,6 +111,7 @@ class PokeItem extends StatelessWidget {
             ),
           ),
           ],
+          ),
         ),
         decoration: BoxDecoration(
             color: ConstsAPI.getColorType(type: types[0]),

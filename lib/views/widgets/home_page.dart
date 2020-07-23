@@ -6,8 +6,6 @@ import 'package:pokedex/models/pokeapi.dart';
 import 'package:pokedex/stores/pokeapi_store.dart';
 import 'package:pokedex/views/widgets/app_bar_home.dart';
 import 'package:pokedex/views/widgets/poke_item.dart';
-
-import '../../models/pokeapi.dart';
 import '../../models/pokeapi.dart';
 import '../../stores/pokeapi_store.dart';
 
@@ -78,7 +76,7 @@ class _HomePageState extends State<HomePage> {
                                       types: pokemon.type,
                                       index: index,
                                       nome: pokemon.name,
-                                      num: pokemon.num,
+                                      num: pokemon.numero,
                                     ),
                                     onTap: (){
                                       Navigator.push(context,
