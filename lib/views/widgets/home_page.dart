@@ -11,16 +11,9 @@ import 'package:provider/provider.dart';
 import '../../models/pokeapi.dart';
 import '../../stores/pokeapi_store.dart';
 
-class HomePage extends StatefulWidget {
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  PokeApiStore _pokemonStore;
-  
+class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {    
-    _pokemonStore = Provider.of<PokeApiStore>(context);
+    final _pokemonStore = Provider.of<PokeApiStore>(context);
     _pokemonStore.fetchPokemonList();
     double screenWidth = MediaQuery.of(context).size.width;
     double statusWidth = MediaQuery.of(context).padding.top;
