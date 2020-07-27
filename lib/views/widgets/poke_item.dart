@@ -65,6 +65,20 @@ class PokeItem extends StatelessWidget {
             padding: const EdgeInsets.all(0),
             child: Stack(              
               children: <Widget>[             
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: Hero(
+                    tag: nome + 'rotation',
+                    child: Opacity(
+                      child: Image.asset(
+                        ConstsApp.whitePokeball,
+                        height: 100,
+                        width: 100,
+                      ),
+                      opacity: 0.2
+                    ),
+                  ),
+                ),
                 Column(
                   children: <Widget>[
                   Padding(
@@ -84,26 +98,13 @@ class PokeItem extends StatelessWidget {
                     child: setTipos(),
                   )
                   ],
-                ),                      
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: Hero(
-                    tag: nome + 'rotation',
-                    child: Opacity(
-                      child: Image.asset(
-                        ConstsApp.whitePokeball,
-                        height: 100,
-                        width: 100,
-                      ),
-                      opacity: 0.2
-                    ),
-                  ),
-                ),
+                ),                                      
                 Align(
                   alignment: Alignment.bottomRight,
                   child: Hero(
                     tag: nome,
                     child: CachedNetworkImage(
+                      alignment: Alignment.bottomRight,
                       height: 80,
                       width: 80,
                       placeholder: (context, url) => Container(
