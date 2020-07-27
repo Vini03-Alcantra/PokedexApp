@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pokedex/consts/consts_api.dart';
+import 'package:pokedex/consts/consts_app.dart';
 import 'package:pokedex/models/pokeapi.dart';
 import 'package:pokedex/stores/pokeapi_store.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';
@@ -85,7 +86,7 @@ class _PokeDetailPageState extends State<PokeDetailPage> {
               ),
               SlidingSheet(
                 elevation: 8,
-                cornerRadius: 16,
+                cornerRadius: 30,
                 snapSpec: const SnapSpec(
                   snap: true,
                   snappings: [400, double.infinity],
@@ -107,7 +108,7 @@ class _PokeDetailPageState extends State<PokeDetailPage> {
                 padding: const EdgeInsets.only(top: 70),
                 child: Positioned(                                
                   child: SizedBox(
-                    height: 150,
+                    height: 200,
                     child: PageView.builder(
                       controller: _pageController,
                       onPageChanged: (index){
@@ -119,6 +120,17 @@ class _PokeDetailPageState extends State<PokeDetailPage> {
                         return Stack(
                           alignment: Alignment.center,
                           children: <Widget>[
+                          Hero( 
+                            tag: index.toString(),
+                            child: Opacity(  
+                              child: Image.asset(  
+                                ConstsApp.whitePokeball,
+                                height: 270, 
+                                width: 270
+                              ),
+                              opacity: 0.2,
+                            )
+                          ),
                           CachedNetworkImage(
                             width: 160,
                             height: 160,
