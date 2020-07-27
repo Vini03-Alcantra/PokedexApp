@@ -132,7 +132,7 @@ class _PokeDetailPageState extends State<PokeDetailPage> {
                                 return Transform.rotate(
                                   angle: animation['rotation'],
                                   child: Hero( 
-                                    tag: index.toString(),
+                                    tag: _pokeitem.name + 'rotation',
                                     child: Opacity(  
                                       child: Image.asset(  
                                         ConstsApp.whitePokeball,
@@ -155,15 +155,18 @@ class _PokeDetailPageState extends State<PokeDetailPage> {
                                 ? 0
                                 : 60
                               ),
-                              child: CachedNetworkImage(
-                              width: 160,
-                              height: 160,
-                              placeholder: (context, count) => Container(
-                                color: Colors.transparent
-                              ),
-                              color: index == _pokemonStore.posicaoAtual ? null : Colors.black.withOpacity(0.5),
-                              imageUrl: "https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/${_pokeitem.numero}.png"
+                              child: Hero(
+                                tag: _pokeitem.name,
+                                child: CachedNetworkImage(
+                                width: 160,
+                                height: 160,
+                                placeholder: (context, count) => Container(
+                                  color: Colors.transparent
+                                ),
+                                color: index == _pokemonStore.posicaoAtual ? null : Colors.black.withOpacity(0.5),
+                                imageUrl: "https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/${_pokeitem.numero}.png"
                             ),
+                              ),
                           );
                           }
                           ),
