@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get_it/get_it.dart';
 import 'package:pokedex/consts/consts_api.dart';
 import 'package:pokedex/models/pokeapi.dart';
 import 'package:pokedex/stores/pokeapi_store.dart';
-import 'package:provider/provider.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';
 
 class PokeDetailPage extends StatefulWidget {
@@ -16,21 +16,23 @@ class PokeDetailPage extends StatefulWidget {
   _PokeDetailPageState createState() => _PokeDetailPageState();
 }
 
-class _PokeDetailPageState extends State<PokeDetailPage> {
-  Color _corPokemon;
+class _PokeDetailPageState extends State<PokeDetailPage> {  
   PageController _pageController;
+  Pokemon _pokemon;
+  PokeApiStore _pokemonStore;
 
   @override
   void initState(){
     super.initState();
     _pageController = PageController(initialPage: widget.index);
+    _pokemonStore = GetIt.instance<PokeApiStore>();
+    _pokemon = _pokemonStore.pokemonAtual;
   }
 
   @override
   Widget build(BuildContext context) {
-    final _pokemonStore = Provider.of<PokeApiStore>(context);
-    Pokemon _pokemon = _pokemonStore.pokemonAtual;
-    _corPokemon = ConstsAPI.getColorType(type: _pokemon.type[0]);
+    
+    //Pokemon _pokemon = _pokemonStore.pokemonAtual;    
     var altura = MediaQuery.of(context).size.height;
     
     return Observer( 
@@ -39,10 +41,7 @@ class _PokeDetailPageState extends State<PokeDetailPage> {
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(50),
             child: Observer(  
-              builder: (context){
-                _corPokemon = ConstsAPI.getColorType(  
-                  type: _pokemonStore.pokemonAtual.type[0]
-                );
+              builder: (context){                
                 return AppBar(
                   title: Opacity(
                     opacity: 0.0,
@@ -56,7 +55,7 @@ class _PokeDetailPageState extends State<PokeDetailPage> {
                     ),
                   ),
                   elevation: 0, 
-                  backgroundColor: _corPokemon,
+                  backgroundColor: _pokemonStore.corPokemon,
                   leading: IconButton(  
                     icon: Icon(Icons.arrow_back),
                     onPressed: (){
@@ -77,8 +76,9 @@ class _PokeDetailPageState extends State<PokeDetailPage> {
             children: <Widget>[
               Observer(  
                 builder: (context){
-                  _corPokemon = ConstsAPI.getColorType(type: _pokemonStore.pokemonAtual.type[0]);
-                  return Container(color: _corPokemon);
+                  return Container(  
+                    color: _pokemonStore.corPokemon,
+                  );
                 }
               ),              
               Container(            
