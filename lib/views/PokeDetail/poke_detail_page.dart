@@ -6,6 +6,7 @@ import 'package:pokedex/consts/consts_api.dart';
 import 'package:pokedex/consts/consts_app.dart';
 import 'package:pokedex/models/pokeapi.dart';
 import 'package:pokedex/stores/pokeapi_store.dart';
+import 'package:simple_animations/simple_animations.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';
 
 class PokeDetailPage extends StatefulWidget {
@@ -21,13 +22,17 @@ class _PokeDetailPageState extends State<PokeDetailPage> {
   PageController _pageController;
   Pokemon _pokemon;
   PokeApiStore _pokemonStore;
-
+  MultiTrackTween _animation;
+  
   @override
   void initState(){
     super.initState();
     _pageController = PageController(initialPage: widget.index);
     _pokemonStore = GetIt.instance<PokeApiStore>();
     _pokemon = _pokemonStore.pokemonAtual;
+    _animation = MultiTrackTween([      
+        Track("rotation").add(Duration(seconds: 5), Tween(begin: 0.0, end: 6), curve: Curves.linear)
+    ]);
   }
 
   @override
@@ -120,17 +125,27 @@ class _PokeDetailPageState extends State<PokeDetailPage> {
                         return Stack(
                           alignment: Alignment.center,
                           children: <Widget>[
-                          Hero( 
-                            tag: index.toString(),
-                            child: Opacity(  
-                              child: Image.asset(  
-                                ConstsApp.whitePokeball,
-                                height: 270, 
-                                width: 270
-                              ),
-                              opacity: 0.2,
-                            )
-                          ),
+                            ControlledAnimation(
+                              playback: Playback.LOOP,
+                              duration: _animation.duration, 
+                              tween: _animation,
+                              builder: (context, animation){
+                                return Transform.rotate(
+                                  angle: animation['rotation'],
+                                  child: Hero( 
+                                    tag: index.toString(),
+                                    child: Opacity(  
+                                      child: Image.asset(  
+                                        ConstsApp.whitePokeball,
+                                        height: 270, 
+                                        width: 270
+                                      ),
+                                      opacity: 0.2,
+                                    )
+                                  ),
+                                );
+                              },
+                            ),                          
                           CachedNetworkImage(
                             width: 160,
                             height: 160,
