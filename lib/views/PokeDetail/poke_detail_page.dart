@@ -82,12 +82,43 @@ class _PokeDetailPageState extends State<PokeDetailPage> {
                     onPressed: (){
                       Navigator.pop(context);
                     },
-                  ),
+                  ),                    
                   actions: <Widget>[
-                    IconButton(
-                      icon: Icon(Icons.favorite_border),            
-                      onPressed: (){}
-                    )
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Stack(
+                      alignment: Alignment.center,
+                      children: <Widget>[                        
+                      ControlledAnimation( 
+                        playback: Playback.LOOP,
+                        duration: _animation.duration,
+                        tween: _animation,
+                        builder: (context, animation){
+                          return Transform.rotate(
+                            angle: 6.0, //animation['rotation'],
+                            child: Hero( 
+                              tag: "",//_pokeitem.name + 'rotation',
+                              child: Opacity(  
+                                child: Image.asset(  
+                                  ConstsApp.whitePokeball,
+                                  height: 50, 
+                                  width: 50
+                                ),
+                                opacity: _opacityTitleAppBar >= 0.2 ? 0.2 : 0.0,
+                              )
+                            ),
+                          );
+                        }
+                      ),                      
+                      IconButton(  
+                        icon: Icon(Icons.favorite_border),
+                        onPressed: (){
+                          Navigator.pop(context);
+                        },
+                      ),       
+                      ]
+                  ),
+                    ),
                   ],
                 );
               }
@@ -118,6 +149,7 @@ class _PokeDetailPageState extends State<PokeDetailPage> {
                 cornerRadius: 30,
                 snapSpec: const SnapSpec(
                   snap: true,
+                  //snappings: [100, double.infinity],
                   snappings: [400, double.infinity],                  
                   positioning: SnapPositioning.pixelOffset,
                 ),
@@ -135,7 +167,7 @@ class _PokeDetailPageState extends State<PokeDetailPage> {
               Opacity(
                 opacity: _opacity,
                 child: Padding(
-                  padding: EdgeInsets.only(top: 70 - _progress * 50),
+                  padding: EdgeInsets.only(top: _opacityTitleAppBar == 1 ? 1000 : 70 - _progress * 50),
                   child: Positioned(                                
                     child: SizedBox(
                       height: 200,
