@@ -87,13 +87,16 @@ class PokeItem extends StatelessWidget {
                 ),                      
                 Align(
                   alignment: Alignment.bottomRight,
-                  child: Opacity(
-                    child: Image.asset(
-                      ConstsApp.whitePokeball,
-                      height: 100,
-                      width: 100,
+                  child: Hero(
+                    tag: index.toString(),
+                    child: Opacity(
+                      child: Image.asset(
+                        ConstsApp.whitePokeball,
+                        height: 100,
+                        width: 100,
+                      ),
+                      opacity: 0.2
                     ),
-                    opacity: 0.2
                   ),
                 ),
                 Align(

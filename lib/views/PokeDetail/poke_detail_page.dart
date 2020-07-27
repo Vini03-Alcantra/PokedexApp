@@ -31,8 +31,7 @@ class _PokeDetailPageState extends State<PokeDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    
-    //Pokemon _pokemon = _pokemonStore.pokemonAtual;    
+        
     var altura = MediaQuery.of(context).size.height;
     
     return Observer( 
@@ -105,7 +104,7 @@ class _PokeDetailPageState extends State<PokeDetailPage> {
               },
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 60),
+                padding: const EdgeInsets.only(top: 70),
                 child: Positioned(                                
                   child: SizedBox(
                     height: 150,
@@ -117,13 +116,18 @@ class _PokeDetailPageState extends State<PokeDetailPage> {
                       itemCount: _pokemonStore.pokeAPI.pokemon.length,
                       itemBuilder: (BuildContext context, int index){
                         Pokemon _pokeitem = _pokemonStore.getPokemon(index: index);
-                        return CachedNetworkImage(
-                          width: 60,
-                          height: 60,
-                          placeholder: (context, count) => Container(
-                            color: Colors.transparent
+                        return Stack(
+                          alignment: Alignment.center,
+                          children: <Widget>[
+                          CachedNetworkImage(
+                            width: 160,
+                            height: 160,
+                            placeholder: (context, count) => Container(
+                              color: Colors.transparent
+                            ),
+                            imageUrl: "https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/${_pokeitem.numero}.png"
                           ),
-                          imageUrl: "https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/${_pokeitem.numero}.png"
+                          ]
                         );
                       }
                     ),
