@@ -12,7 +12,7 @@ part 'pokeapi_store.g.dart';
 class PokeApiStore = PokeApiStoreBase with _$PokeApiStore;
 
 abstract class PokeApiStoreBase with Store{
-  
+
   @observable
   PokeAPI _pokeAPI;
   
@@ -21,6 +21,9 @@ abstract class PokeApiStoreBase with Store{
 
   @observable 
   dynamic corPokemon;
+
+  @observable
+  int posicaoAtual;
 
   @computed
   PokeAPI get pokeAPI => _pokeAPI;
@@ -45,6 +48,7 @@ abstract class PokeApiStoreBase with Store{
   setPokemonAtual({int index}){
     _pokemonAtual = _pokeAPI.pokemon[index];
     corPokemon = ConstsAPI.getColorType(type: _pokemonAtual.type[0]);
+    posicaoAtual = index;
   }
 
   @action

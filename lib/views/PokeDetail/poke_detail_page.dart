@@ -94,8 +94,7 @@ class _PokeDetailPageState extends State<PokeDetailPage> {
                 cornerRadius: 30,
                 snapSpec: const SnapSpec(
                   snap: true,
-                  snappings: [400, double.infinity],
-                  //snappings: [0.7, 1.0],
+                  snappings: [400, double.infinity],                  
                   positioning: SnapPositioning.pixelOffset,
                 ),
                 builder: (context, state) {
@@ -146,13 +145,27 @@ class _PokeDetailPageState extends State<PokeDetailPage> {
                                 );
                               },
                             ),                          
-                          CachedNetworkImage(
-                            width: 160,
-                            height: 160,
-                            placeholder: (context, count) => Container(
-                              color: Colors.transparent
+                          Observer(
+                            builder: (context){
+                            return AnimatedPadding(
+                              duration: Duration(milliseconds: 450),
+                              curve: Curves.bounceInOut,
+                              padding: EdgeInsets.all(
+                                index == _pokemonStore.posicaoAtual
+                                ? 0
+                                : 60
+                              ),
+                              child: CachedNetworkImage(
+                              width: 160,
+                              height: 160,
+                              placeholder: (context, count) => Container(
+                                color: Colors.transparent
+                              ),
+                              color: index == _pokemonStore.posicaoAtual ? null : Colors.black.withOpacity(0.5),
+                              imageUrl: "https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/${_pokeitem.numero}.png"
                             ),
-                            imageUrl: "https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/${_pokeitem.numero}.png"
+                          );
+                          }
                           ),
                           ]
                         );
