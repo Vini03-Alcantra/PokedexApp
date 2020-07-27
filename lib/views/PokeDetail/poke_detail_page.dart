@@ -7,14 +7,25 @@ import 'package:pokedex/stores/pokeapi_store.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';
 
-class PokeDetailPage extends StatelessWidget {
+class PokeDetailPage extends StatefulWidget {
   final int index;
-  
 
-  Color _corPokemon;
-  
   PokeDetailPage({Key key, this.index}) : super(key: key);
-  
+
+  @override
+  _PokeDetailPageState createState() => _PokeDetailPageState();
+}
+
+class _PokeDetailPageState extends State<PokeDetailPage> {
+  Color _corPokemon;
+  PageController _pageController;
+
+  @override
+  void initState(){
+    super.initState();
+    _pageController = PageController(initialPage: widget.index);
+  }
+
   @override
   Widget build(BuildContext context) {
     final _pokemonStore = Provider.of<PokeApiStore>(context);
@@ -99,6 +110,7 @@ class PokeDetailPage extends StatelessWidget {
                   child: SizedBox(
                     height: 150,
                     child: PageView.builder(
+                      controller: _pageController,
                       onPageChanged: (index){
                         _pokemonStore.setPokemonAtual(index: index);
                       },
